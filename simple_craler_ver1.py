@@ -11,6 +11,8 @@ import mechanize
 import operator
 import sys
 import os
+from urlparse import urlsplit
+
 
 def send_requests(url):
     headers = {
