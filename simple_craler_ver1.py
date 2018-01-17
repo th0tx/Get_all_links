@@ -46,6 +46,34 @@ def get_all_Links(self):
             trueLinks.append(link[2])
     return trueLinks
 
+def get_domainname(url):
+    url_parsed = urlsplit(url)
+    #print url_parsed
+    domain_name = url_parsed.netloc
+    return domain_name
+
+def urls_removal(urls):
+    u = {}
+    urls_Removal=[]
+    for link in urls :
+        #print link
+        if (link.find('?')>0):
+            m_link = link.split('?')
+            values = m_link[-1]
+            values = values.split('&')
+            url = m_link[0]
+            P=[]
+            for j in values:
+                Parameter = j.split('=')[0]
+                P.append(Parameter)
+            if url not in u.keys():
+                c = link.split(': ')[-1]
+                #print c
+                urls_Removal.append(c)
+            u[url] = set(P)
+    #print u
+    return urls_Removal
+
 def print_all_links():
     for link in get_all_Links(send_requests(url)):
         print link
